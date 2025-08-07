@@ -1,50 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DealPilot - 추천 쇼핑 링크</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }
-        header { background-color: #222; color: #fff; padding: 1rem; text-align: center; }
-        h1 { margin: 0; font-size: 1.5rem; }
-        .container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
-        .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; align-items: center; }
-        .card img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; margin-right: 1rem; }
-        .card-content { flex: 1; }
-        .card-content h2 { font-size: 1.1rem; margin: 0 0 0.3rem 0; }
-        .card-content p { font-size: 0.9rem; margin: 0 0 0.5rem 0; color: #333; }
-        .card-content a { text-decoration: none; color: white; background-color: #007bff; padding: 0.5rem 1rem; border-radius: 4px; display: inline-block; }
-        footer { text-align: center; font-size: 0.8rem; color: #666; padding: 1rem 0; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DealPilot - 추천 쇼핑 링크</title>
+  <style>
+    body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }
+    header { background-color: #222; color: #fff; padding: 1rem; text-align: center; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
+    .search-box { display: flex; margin-bottom: 2rem; }
+    .search-box input { flex: 1; padding: 0.75rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px 0 0 4px; }
+    .search-box button { padding: 0.75rem 1rem; font-size: 1rem; background-color: #007bff; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+    .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; align-items: center; }
+    .card img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; margin-right: 1rem; }
+    .card-content { flex: 1; }
+    .card-content h2 { font-size: 1.1rem; margin: 0 0 0.3rem 0; }
+    .card-content p { font-size: 0.9rem; margin: 0 0 0.5rem 0; color: #333; }
+    .card-content a { text-decoration: none; color: white; background-color: #007bff; padding: 0.5rem 1rem; border-radius: 4px; display: inline-block; }
+    footer { text-align: center; font-size: 0.8rem; color: #666; padding: 1rem 0; }
+  </style>
+  <script>
+    function filterProducts() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+
+      cards.forEach(card => {
+        const title = card.querySelector("h2").textContent.toLowerCase();
+        const desc = card.querySelector("p").textContent.toLowerCase();
+        if (title.includes(keyword) || desc.includes(keyword)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
 </head>
 <body>
-    <header>
-        <h1>🔥 오늘의 추천템 - DealPilot</h1>
-    </header>
-    <div class="container">
-        <!-- 예시 카드들 -->
-        <div class="card">
-            <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/862066641797853-b5cd166c-2594-47ae-b324-5a5153f063d3.jpg" alt="미니 선풍기">
-            <div class="card-content">
-                <h2>미니 선풍기</h2>
-                <p>휴대성, 냉감 최고! 여름철 꿀템 미니 선풍기</p>
-                <a href="https://link.coupang.com/a/cI9uDm" target="_blank">구매하러 가기</a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://thumbnail7.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/fe06/897c591bea86a8e2bddad6c76d85f788597661f7983702f3bb9f78af47cc.jpg" alt="쿨링 매트">
-            <div class="card-content">
-                <h2>쿨링 매트</h2>
-                <p>시원하게 꿀잠 자자! 여름 필수템 쿨매트</p>
-                <a href="https://link.coupang.com/a/cI9wQc" target="_blank">구매하러 가기</a>
-            </div>
-        </div>
-        <!-- 여기에 카드 계속 추가 가능 -->
+  <header>
+    <h1>🔥 오늘의 추천템 - DealPilot</h1>
+  </header>
+
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="예: 여름, 선풍기, 캠핑" />
+      <button onclick="filterProducts()">검색</button>
     </div>
-    <footer>
-         이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
-    </footer>
+
+    <!-- 카드 시작 -->
+    <div class="card">
+      <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/862066641797853-b5cd166c-2594-47ae-b324-5a5153f063d3.jpg" alt="미니 선풍기">
+      <div class="card-content">
+        <h2>1. 미니 선풍기</h2>
+        <p>휴대성, 냉감 최고! 여름철 꿀템 미니 선풍기</p>
+        <a href="https://link.coupang.com/a/cI9uDm" target="_blank">구매하러 가기</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://thumbnail7.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/fe06/897c591bea86a8e2bddad6c76d85f788597661f7983702f3bb9f78af47cc.jpg" alt="쿨링 매트">
+      <div class="card-content">
+        <h2>2. 쿨링 매트</h2>
+        <p>시원하게 꿀잠 자자! 여름 필수템 쿨매트</p>
+        <a href="https://link.coupang.com/a/cI9wQc" target="_blank">구매하러 가기</a>
+      </div>
+    </div>
+    <!-- 카드 끝 -->
+
+  </div>
+
+  <footer>
+    ※ 이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받을 수 있습니다.
+  </footer>
 </body>
 </html>
