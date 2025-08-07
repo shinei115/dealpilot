@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,8 +11,9 @@
     .container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
     .search-box { display: flex; margin-bottom: 2rem; }
     .search-box input { flex: 1; padding: 0.75rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px 0 0 4px; }
-    .search-box button { padding: 0.75rem 1rem; font-size: 1rem; background-color: #007bff; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
-    .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; align-items: center; }
+    .search-box button { padding: 0.75rem 1rem; font-size: 1rem; background-color: #007bff; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; min-width: 80px; touch-action: manipulation; }
+    .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; align-items: center; transition: all 0.3s ease-in-out; }
+    .card:hover { transform: scale(1.02); }
     .card img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; margin-right: 1rem; }
     .card-content { flex: 1; }
     .card-content h2 { font-size: 1.1rem; margin: 0 0 0.3rem 0; }
@@ -22,7 +24,7 @@
 </head>
 <body>
   <header>
-    <h1>🔥 오늘의 추천템 - DealPilot</h1>
+    <h1>🔥 딜파일럿 - DealPilot</h1>
   </header>
 
   <div class="container">
@@ -31,11 +33,13 @@
       <button onclick="filterProducts()">검색</button>
     </div>
 
-    <!-- 카드 시작 -->
+    <p id="resultInfo" style="font-weight:bold; margin-bottom:1rem;"></p>
+    <p id="noResults" style="display:none; color:gray; text-align:center;">검색 결과가 없습니다 😢</p>
+
     <div class="card">
       <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/862066641797853-b5cd166c-2594-47ae-b324-5a5153f063d3.jpg" alt="미니 선풍기">
       <div class="card-content">
-        <h2>1.미니 선풍기</h2>
+        <h2><span class="badge">1</span> 미니 선풍기</h2>
         <p>휴대성, 냉감 최고! 여름철 꿀템 미니 선풍기</p>
         <a href="https://link.coupang.com/a/cI9uDm" target="_blank">구매하러 가기</a>
       </div>
@@ -44,19 +48,18 @@
     <div class="card">
       <img src="https://thumbnail7.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/fe06/897c591bea86a8e2bddad6c76d85f788597661f7983702f3bb9f78af47cc.jpg" alt="쿨링 매트">
       <div class="card-content">
-        <h2>2. 쿨링 매트</h2>
+        <h2><span class="badge">2</span> 쿨링 매트</h2>
         <p>시원하게 꿀잠 자자! 여름 필수템 쿨매트</p>
         <a href="https://link.coupang.com/a/cI9wQc" target="_blank">구매하러 가기</a>
       </div>
     </div>
-    <!-- 카드 끝 -->
+
   </div>
 
   <footer>
     ※ 이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받을 수 있습니다.
   </footer>
 
-  <!-- 스크립트는 body 마지막에 위치 (DOM 로딩 후 실행 보장) -->
   <script>
     function normalizeText(text) {
       return text.toLowerCase().replace(/\s+/g, "").replace(/\./g, "");
@@ -65,6 +68,7 @@
     function filterProducts() {
       const keyword = normalizeText(document.getElementById("searchInput").value);
       const cards = document.querySelectorAll(".card");
+      let matchCount = 0;
 
       cards.forEach(card => {
         const title = normalizeText(card.querySelector("h2").textContent);
@@ -72,13 +76,16 @@
 
         if (title.includes(keyword) || desc.includes(keyword)) {
           card.style.display = "flex";
+          matchCount++;
         } else {
           card.style.display = "none";
         }
       });
+
+      document.getElementById("noResults").style.display = matchCount === 0 ? "block" : "none";
+      document.getElementById("resultInfo").textContent = keyword ? `‘${document.getElementById("searchInput").value}’ 검색 결과: ${matchCount}건` : "";
     }
 
-    // 입력할 때마다 실시간 필터링
     document.getElementById('searchInput').addEventListener('input', filterProducts);
   </script>
 </body>
