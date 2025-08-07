@@ -19,28 +19,6 @@
     .card-content a { text-decoration: none; color: white; background-color: #007bff; padding: 0.5rem 1rem; border-radius: 4px; display: inline-block; }
     footer { text-align: center; font-size: 0.8rem; color: #666; padding: 1rem 0; }
   </style>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    function filterProducts() {
-      const keyword = document.getElementById("searchInput").value.toLowerCase();
-      const cards = document.querySelectorAll(".card");
-
-      cards.forEach(card => {
-        const title = card.querySelector("h2").textContent.toLowerCase();
-        const desc = card.querySelector("p").textContent.toLowerCase();
-        if (title.includes(keyword) || desc.includes(keyword)) {
-          card.style.display = "flex";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-
-    // 이벤트 등록 (DOMContentLoaded 이후)
-    document.getElementById('searchInput').addEventListener('input', filterProducts);
-    window.filterProducts = filterProducts; // 버튼에서도 쓸 수 있게 전역에 등록
-  });
-</script>
 </head>
 <body>
   <header>
@@ -57,7 +35,7 @@
     <div class="card">
       <img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/862066641797853-b5cd166c-2594-47ae-b324-5a5153f063d3.jpg" alt="미니 선풍기">
       <div class="card-content">
-        <h2>1. 미니 선풍기</h2>
+        <h2>1.미니 선풍기</h2>
         <p>휴대성, 냉감 최고! 여름철 꿀템 미니 선풍기</p>
         <a href="https://link.coupang.com/a/cI9uDm" target="_blank">구매하러 가기</a>
       </div>
@@ -72,11 +50,36 @@
       </div>
     </div>
     <!-- 카드 끝 -->
-
   </div>
 
   <footer>
     ※ 이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받을 수 있습니다.
   </footer>
+
+  <!-- 스크립트는 body 마지막에 위치 (DOM 로딩 후 실행 보장) -->
+  <script>
+    function normalizeText(text) {
+      return text.toLowerCase().replace(/\s+/g, "").replace(/\./g, "");
+    }
+
+    function filterProducts() {
+      const keyword = normalizeText(document.getElementById("searchInput").value);
+      const cards = document.querySelectorAll(".card");
+
+      cards.forEach(card => {
+        const title = normalizeText(card.querySelector("h2").textContent);
+        const desc = normalizeText(card.querySelector("p").textContent);
+
+        if (title.includes(keyword) || desc.includes(keyword)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // 입력할 때마다 실시간 필터링
+    document.getElementById('searchInput').addEventListener('input', filterProducts);
+  </script>
 </body>
 </html>
