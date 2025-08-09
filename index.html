@@ -53,6 +53,8 @@
         display: flex;
         align-items: center;
         transition: all 0.3s ease-in-out;
+        justify-content: space-between;
+        flex-wrap: wrap; /* 줄바꿈 필요 시 */
       }
       .card:hover {
         transform: scale(1.02);
@@ -65,7 +67,7 @@
         margin-right: 1rem;
       }
       .card-content {
-        flex: 1;
+        flex: 1; /* 남은 공간 차지 */
       }
       .card-content h2 {
         font-size: 1.1rem;
@@ -77,12 +79,31 @@
         color: #333;
       }
       .card-content a {
+        margin-left: auto;
+        padding: 0.5rem 1rem;
         text-decoration: none;
         color: white;
         background-color: #007bff;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        display: inline-block;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        white-space: nowrap;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+        animation: glow-border 1.5s infinite alternate ease-in-out;
+        transition: transform 0.2s ease;
+      }
+      .card-content a:hover {
+        transform: scale(1.05);
+      }
+      @keyframes glow-border {
+        0% {
+          box-shadow: 0 0 3px #007bff, 0 0 2px #007bff;
+        }
+        100% {
+          box-shadow: 0 0 7px #00aaff, 0 0 5px #00aaff;
+        }
       }
       footer {
         text-align: center;
@@ -111,6 +132,24 @@
       <p id="noResults" style="display: none; color: gray; text-align: center">
         검색 결과가 없습니다 😢
       </p>
+      <div class="card">
+        <img
+          src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/c4b2/c8a2a3971ba794507ce6e6caeaec8c98df9a685002515a57b67488b66990.jpg"
+          alt="AI 스마트폰 짐벌"
+        />
+        <div class="card-content">
+          <h2>
+            <span class="badge">6번 -</span> 지윤 스무스 5S AI 스마트폰 짐벌
+          </h2>
+          <p>AI가 알아서 트래킹! 🎯 여행, 브이로그 필수 현존 최강 짐벌</p>
+          <a
+            href="https://link.coupang.com/a/cJDUmb"
+            target="_blank"
+            onclick="trackClick('스마트폰 짐벌')"
+            >최저가로 구매</a
+          >
+        </div>
+      </div>
       <div class="card">
         <img
           src="https://thumbnail10.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/1e35/4ab6116bc908908cca8ea8298b45cff639dee4e0b6ed85ca09ebfaf962f3.jpg"
