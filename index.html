@@ -110,11 +110,11 @@
         color: #666;
         padding: 1rem 0;
       }
-      /* 고정 상단 배너 */
+
+      /* 고정 상단 배너 (스크롤 시 상단 고정) */
       .top-banner {
-        position: fixed;
+        position: sticky;
         top: 0;
-        left: 0;
         width: 100%;
         height: 30px;
         background-color: rgba(34, 34, 34, 0.85);
@@ -124,26 +124,25 @@
         align-items: center;
         z-index: 9999;
         font-size: 14px;
-        pointer-events: none; /* 클릭 방지 (원하면 삭제) */
         white-space: nowrap;
       }
 
-      /* 트랙 */
+      /* 배너 안 트랙 */
       .banner-track {
         display: flex;
         white-space: nowrap;
-        padding-left: 0; /* 처음부터 화면에 표시 */
-        animation: scroll 20s linear infinite;
+        animation: scroll 30s linear infinite;
       }
 
-      /* 문구 스타일 */
+      /* 배너 문구 */
       .banner-text {
         flex: 0 0 auto;
-        color: rgba(204, 204, 204, 0.548);
+        color: #ccc;
         font-size: 14px;
-        line-height: 40px;
+        line-height: 30px;
         padding-right: 2rem;
       }
+
       @keyframes scroll {
         0% {
           transform: translateX(0);
@@ -159,6 +158,7 @@
       <h1>🔥 딜파일럿 - DealPilot</h1>
       <h3>최고의 제품만</h3>
     </header>
+
     <div class="top-banner">
       <div class="banner-track" id="banner-track">
         <div class="banner-text">
@@ -373,10 +373,20 @@
       // 초기 실행
       fillBanner();
 
-      // 창 크기 변경 시 재계산
-      window.addEventListener("resize", () => {
-        fillBanner();
-      });
+      // 배너 문구 무한 반복
+      const bannerTrack = document.getElementById("banner-track");
+      const originalText = bannerTrack.innerHTML;
+      function fillBannerInfinite() {
+        bannerTrack.innerHTML = originalText;
+        const textWidth = bannerTrack.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const repeatCount = Math.ceil((viewportWidth * 2) / textWidth) + 2;
+        for (let i = 0; i < repeatCount; i++) {
+          bannerTrack.innerHTML += originalText;
+        }
+      }
+      fillBannerInfinite();
+      window.addEventListener("resize", fillBannerInfinite);
     </script>
   </body>
 </html>
