@@ -113,27 +113,27 @@
 
       /* 고정 상단 배너 (스크롤 시 상단 고정) */
       .top-banner {
-        position: sticky;
-        top: 0;
-        width: 100%;
-        height: 30px;
-        background-color: rgba(34, 34, 34, 0.85);
-        color: #fff;
-        overflow: hidden;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        z-index: 9999;
-        font-size: 14px;
-        white-space: nowrap;
-      }
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: rgba(34, 34, 34, 0.85);
+  color: #fff;
 
-      /* 배너 안 트랙 */
-      .banner-track {
-        display: flex;
-        white-space: nowrap;
-        animation: scroll 60s linear infinite;
-      }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 6px 12px;        /* 높이 고정 대신 여백 */
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;         /* 두 줄일 때 가독성 */
+  word-break: keep-all;     /* 한글 단어 중간 분리 방지 */
+  white-space: normal;      /* 줄바꿈 허용 */
+
+  z-index: 9999;
+}
+
+      
 
       /* 배너 문구 */
       .banner-text {
@@ -160,14 +160,7 @@
         height: auto;
       }
 
-      @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
+      
     </style>
   </head>
   <body>
@@ -415,38 +408,6 @@
         }).catch((err) => console.error("로그 전송 실패:", err));
       }
 
-      // 반응형 배너 길이 설정
-      const track = document.getElementById("banner-track");
-      const originalHTML = track.innerHTML;
-
-      function fillBanner() {
-        track.innerHTML = originalHTML; // 초기화
-        const textWidth = track.scrollWidth; // 문구 하나 길이
-        const viewportWidth = window.innerWidth;
-        const repeatCount = Math.ceil((viewportWidth * 2) / textWidth);
-
-        for (let i = 0; i < repeatCount; i++) {
-          track.innerHTML += originalHTML;
-        }
-      }
-
-      // 초기 실행
-      fillBanner();
-
-      // 배너 문구 무한 반복
-      const bannerTrack = document.getElementById("banner-track");
-      const originalText = bannerTrack.innerHTML;
-      function fillBannerInfinite() {
-        bannerTrack.innerHTML = originalText;
-        const textWidth = bannerTrack.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const repeatCount = Math.ceil((viewportWidth * 2) / textWidth) + 2;
-        for (let i = 0; i < repeatCount; i++) {
-          bannerTrack.innerHTML += originalText;
-        }
-      }
-      fillBannerInfinite();
-      window.addEventListener("resize", fillBannerInfinite);
     </script>
   </body>
 </html>
