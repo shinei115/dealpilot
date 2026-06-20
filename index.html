@@ -20,7 +20,9 @@
         max-width: 800px;
         margin: 2rem auto;
         padding: 1rem;
+        padding-bottom: 120px;
       }
+
       .search-box {
         display: flex;
         margin-bottom: 2rem;
@@ -113,35 +115,36 @@
 
       /* 고정 상단 배너 (스크롤 시 상단 고정) */
       .top-banner {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: rgba(34, 34, 34, 0.85);
-  color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+        background: #222;
+        color: #ccc;
 
-  padding: 6px 12px;        /* 높이 고정 대신 여백 */
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.4;         /* 두 줄일 때 가독성 */
-  word-break: keep-all;     /* 한글 단어 중간 분리 방지 */
-  white-space: normal;      /* 줄바꿈 허용 */
+        padding: 8px 10px;
 
-  z-index: 9999;
-}
+        font-size: 12px;
+        line-height: 1.4;
 
-      
+        text-align: center;
+        word-break: keep-all;
+        box-sizing: border-box;
+      }
 
       /* 배너 문구 */
       .banner-text {
-        flex: 0 0 auto;
+        width: 100%;
+
         color: #ccc;
-        font-size: 14px;
-        line-height: 30px;
-        padding-right: 2rem;
+        font-size: 12px;
+        line-height: 1.4;
+
+        white-space: normal;
+        word-break: keep-all;
+
+        padding: 0;
+        margin: 0;
       }
       .bottom-banner {
         position: fixed;
@@ -159,8 +162,11 @@
         max-width: 100%;
         height: auto;
       }
-
-      
+      @media (max-width: 480px) {
+        .banner-text {
+          font-size: 11px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -170,10 +176,10 @@
     </header>
 
     <div class="top-banner">
-        <div class="banner-text ">
-          ※ 이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의
-          수수료를 제공받을 수 있습니다.
-        </div>
+      <div class="banner-text">
+        ※ 이 페이지는 쿠팡 파트너스 활동의 일환으로, 일정액의 수수료를 제공받을
+        수 있습니다.
+      </div>
     </div>
     <div class="bottom-banner">
       <a
@@ -259,7 +265,7 @@
         />
         <div class="card-content">
           <h2><span class="badge">5번 -</span> 파빗 2세대 전동청소솔 PRO</h2>
-          <p>피부 깊은 곳까지 작용하는 PDRN 앰플 클렌징 2개 세트 구성</p>
+          <p>힘들이지 않고도 쉽게! 재미있게!</p>
           <a
             href="https://link.coupang.com/a/cJr8oP"
             target="_blank"
@@ -407,7 +413,6 @@
           body: JSON.stringify(logData),
         }).catch((err) => console.error("로그 전송 실패:", err));
       }
-
     </script>
   </body>
 </html>
